@@ -1,0 +1,12 @@
+<!--
+  Add inside <ossec_config> on the host that runs the Wazuh agent (or in the agent's shared group config).
+  The application writes one JSON object per line; Wazuh's built-in json decoder extracts the fields the rules use.
+  Docker: the log lives in the named volume. Find it with
+      docker volume inspect payloop-secure-sandbox_payloop-data --format '{{ .Mountpoint }}'
+  and point <location> at <mountpoint>/log/payloop.jsonl, or bind-mount a host directory instead of the named volume.
+-->
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/lib/docker/volumes/payloop-secure-sandbox_payloop-data/_data/log/payloop.jsonl</location>
+  <label key="app">payloop</label>
+</localfile>

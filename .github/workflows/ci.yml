@@ -1,0 +1,20 @@
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: shivammathur/setup-php@v2
+        with: {php-version: "8.3", extensions: "pdo_sqlite, sodium"}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pyyaml
+      - name: Exploit regression, SSRF guard, detection suite, attack simulation
+        run: make test
+      - name: Mutation check (the detection suite must be able to fail)
+        run: make mutate

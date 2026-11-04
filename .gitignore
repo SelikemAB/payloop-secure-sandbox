@@ -1,0 +1,10 @@
+# Runtime scratch and generated output: recreated by make run/demo/test, never committed.
+.run/
+build/
+reports/
+# App artifacts
+app/var/*.sqlite*
+app/var/log/
+# Python
+__pycache__/
+*.pyc
